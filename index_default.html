@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Happy Birthday</title>
+	<meta charset="UTF-8" />
+	<meta name="description" content="Birthday Celebration">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+		rel="stylesheet">
+	<style>
+		:root {
+			--primary-color: #1e3c72;
+			--secondary-color: #2a5298;
+			--accent-color: #4a69bd;
+			--text-color: #2c3e50;
+			--light-color: #f0f2f5;
+			--transition: all 0.3s ease;
+			--button-area-width: 180px;
+		}
+
+		html {
+			overflow-x: hidden;
+		}
+
+		*,
+		::before,
+		::after {
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: 'Poppins', sans-serif;
+			background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+			color: var(--text-color);
+			line-height: 1.7;
+			padding-bottom: 60px;
+			/* REMOVED padding-left: var(--button-area-width); */
+			position: relative;
+		}
+
+		/* --- New Wrapper Style --- */
+		.content-wrapper {
+			padding-left: var(--button-area-width);
+			/* Apply padding here */
+			position: relative;
+			/* Establish positioning context if needed */
+			width: 100%;
+			/* Ensure it takes full width before padding */
+		}
+
+		.main-container {
+			max-width: 900px;
+			margin: 0 auto;
+			/* Center within the wrapper */
+			padding: 20px;
+			/* Keep internal padding */
+			width: 100%;
+			/* Allow shrinking below max-width */
+		}
+
+		.header {
+			text-align: center;
+			padding: 30px 0;
+		}
+
+		.birthday-title {
+			font-size: 3rem;
+			font-weight: 700;
+			/* ... rest of title styles ... */
+			color: var(--primary-color);
+			margin-bottom: 15px;
+			background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+		}
+
+		.subtitle {
+			font-size: 1.5rem;
+			font-weight: 400;
+			margin-bottom: 30px;
+			color: var(--accent-color);
+		}
+
+		.celebration-card {
+			background-color: white;
+			border-radius: 12px;
+			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+			padding: 40px;
+			margin-bottom: 30px;
+			opacity: 0;
+			transform: translateY(30px);
+			transition: var(--transition);
+		}
+
+		.celebration-card.show {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		.message-section {
+			font-size: 1.1rem;
+			line-height: 1.8;
+			text-align: center;
+			margin: 30px 0;
+		}
+
+		.message-section p {
+			margin-bottom: 15px;
+		}
+
+		.quote {
+			font-style: italic;
+			border-left: 4px solid var(--primary-color);
+			padding-left: 20px;
+			margin: 25px 0;
+			color: var(--accent-color);
+			text-align: left;
+			/* Align quote text left */
+		}
+
+		.highlight-text {
+			font-weight: 600;
+			color: var(--secondary-color);
+		}
+
+		.celebration-elements {
+			text-align: center;
+			margin: 40px 0;
+		}
+
+		.cake-container {
+			margin: 30px auto;
+			max-width: 300px;
+			position: relative;
+		}
+
+		.cake {
+			width: 100%;
+			height: 180px;
+			position: relative;
+			border-radius: 10px 10px 0 0;
+			background: linear-gradient(to right, #f27121, #e94057, #8a2387);
+			box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+		}
+
+		.cake:before {
+			content: '';
+			position: absolute;
+			background: linear-gradient(to right, #f27121, #e94057, #8a2387);
+			width: 100%;
+			height: 40px;
+			border-radius: 10px 10px 0 0;
+			top: -20px;
+			left: 0;
+		}
+
+		.candle {
+			position: absolute;
+			background-color: #fff;
+			width: 12px;
+			height: 30px;
+			top: -40px;
+			left: 50%;
+			transform: translateX(-50%);
+			border-radius: 4px;
+		}
+
+		.flame {
+			position: absolute;
+			width: 15px;
+			height: 30px;
+			background: linear-gradient(to bottom, #ffff00, #ff9900);
+			border-radius: 50% 50% 20% 20%;
+			box-shadow: 0 0 10px #ff6600, 0 0 20px #ff9900;
+			transform-origin: center bottom;
+			animation: flicker 1s infinite alternate;
+			top: -30px;
+			left: 50%;
+			transform: translateX(-50%) scale(1.0);
+		}
+
+		@keyframes flicker {
+			0% {
+				transform: translateX(-50%) scale(1.0);
+			}
+
+			50% {
+				transform: translateX(-50%) scale(0.9);
+			}
+
+			100% {
+				transform: translateX(-50%) scale(1.1);
+			}
+		}
+
+		.button-container {
+			position: fixed;
+			left: 20px;
+			top: 30px;
+			display: flex;
+			flex-direction: column;
+			gap: 15px;
+			z-index: 1000;
+			width: calc(var(--button-area-width) - 40px);
+		}
+
+		.control-button {
+			padding: 12px 15px;
+			/* ... rest of button styles ... */
+			border-radius: 50px;
+			background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+			color: white;
+			border: none;
+			cursor: pointer;
+			font-weight: 500;
+			letter-spacing: 0.5px;
+			transition: var(--transition);
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+			width: 100%;
+			text-align: center;
+		}
+
+		.control-button:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 7px 14px rgba(0, 0, 0, 0.1);
+		}
+
+		.control-button:active {
+			transform: translateY(1px);
+		}
+
+		.balloon {
+			width: 50px;
+			height: 65px;
+			background: var(--primary-color);
+			border-radius: 50%;
+			position: fixed;
+			/* Changed to fixed relative to viewport */
+			top: 100vh;
+			animation: float 15s ease-in-out infinite;
+			opacity: 0;
+			transition: opacity 1s ease;
+			z-index: 990;
+		}
+
+		.balloon::before {
+			content: '';
+			width: 2px;
+			height: 40px;
+			background: rgba(0, 0, 0, 0.2);
+			position: absolute;
+			left: 50%;
+			bottom: -40px;
+			transform: translateX(-50%);
+		}
+
+		.balloon.show {
+			opacity: 1;
+		}
+
+		@keyframes float {
+			0% {
+				transform: translateY(0vh) rotate(0deg);
+				/* Start just below viewport */
+			}
+
+			50% {
+				transform: translateY(-110vh) rotate(20deg);
+			}
+
+			/* Go way above */
+			100% {
+				transform: translateY(-220vh) rotate(-20deg);
+			}
+
+			/* End even higher */
+		}
+
+
+		.footer {
+			text-align: center;
+			margin-top: 50px;
+			font-size: 0.9rem;
+			color: var(--accent-color);
+			/* REMOVED padding-left: var(--button-area-width); */
+			/* Center footer relative to the wrapper's content area */
+			max-width: 900px;
+			/* Match max-width of main container if desired */
+			margin-left: auto;
+			/* Center */
+			margin-right: auto;
+			/* Center */
+			padding: 0 20px;
+			/* Add padding similar to main-container */
+		}
+
+		.fade-in {
+			animation: fadeIn 1s forwards;
+		}
+
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+				transform: translateY(20px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		.audio-container {
+			text-align: center;
+			margin: 20px 0;
+		}
+
+		.audio-container audio {
+			width: 300px;
+			max-width: 100%;
+			border-radius: 30px;
+			outline: none;
+		}
+
+		/* --- Updated Responsive Adjustments --- */
+		@media (max-width: 768px) {
+
+			/* Remove wrapper padding */
+			.content-wrapper {
+				padding-left: 0;
+			}
+
+			/* Add top padding to body for buttons */
+			body {
+				padding-top: 100px;
+				padding-left: 0;
+				/* Ensure no leftover padding */
+			}
+
+			.main-container {
+				padding: 15px;
+				max-width: 100%;
+			}
+
+			.button-container {
+				position: fixed;
+				top: 10px;
+				left: 10px;
+				right: 10px;
+				bottom: auto;
+				width: auto;
+				flex-direction: row;
+				flex-wrap: wrap;
+				justify-content: center;
+				background: rgba(240, 242, 245, 0.9);
+				padding: 10px;
+				border-radius: 8px;
+				box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+				z-index: 1000;
+			}
+
+			.control-button {
+				width: auto;
+				flex-grow: 1;
+				padding: 8px 12px;
+				font-size: 0.9rem;
+			}
+
+			/* Footer already centered by margin auto */
+			.footer {
+				max-width: 100%;
+				/* Allow footer full width */
+				padding: 0 15px;
+				/* Match container padding */
+				margin-top: 30px;
+			}
+
+			.birthday-title {
+				font-size: 2.2rem;
+			}
+
+			.subtitle {
+				font-size: 1.2rem;
+			}
+
+			.celebration-card {
+				padding: 25px 20px;
+			}
+
+			.message-section {
+				font-size: 1rem;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.control-button {
+				min-width: 110px;
+				font-size: 0.85rem;
+			}
+
+			.audio-container audio {
+				width: 90%;
+			}
+
+			body {
+				padding-top: 120px;
+				/* May need adjustment based on wrapped button height */
+			}
+
+			.footer {
+				font-size: 0.8rem;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<audio id="birthday-song" src="Diamonds.mp3" preload="auto"></audio>
+
+	<div class="button-container">
+		<button class="control-button" id="showMessage">Display Message</button>
+		<button class="control-button" id="playMusic">Play Music</button>
+		<button class="control-button" id="showCake">Show Cake</button>
+		<button class="control-button" id="lightCandle">Light Candle</button>
+		<button class="control-button" id="launchBalloons">Launch Balloons</button>
+	</div>
+
+	<div class="content-wrapper">
+
+		<div class="main-container">
+			<div class="header">
+				<h1 class="birthday-title">Happy Birthday</h1>
+				<p class="subtitle">A special celebration just for you</p>
+			</div>
+
+			<div class="celebration-card" id="messageCard">
+				<div class="message-section" id="messageSection">
+					<p>Dear <span class="name-placeholder highlight-text">Friend</span>,</p>
+					<p>Today marks an important milestone in your personal journey. As we celebrate your birthday, we
+						want to take a moment to recognize the positive impact you bring to our team as our valued <span
+							class="position-placeholder highlight-text">team member</span>.</p>
+					<p>Each passing year represents growth, experience, and new opportunities. Today is a perfect
+						occasion to reflect on your achievements and look forward to the promising future ahead.</p>
+					<div class="quote">
+						<p><span class="description-placeholder">Your dedication, creativity, and enthusiasm have been
+								invaluable assets to our team and organization.</span></p>
+					</div>
+					<p>We appreciate your contributions and the unique perspective you bring to our shared endeavors.
+						Your presence enhances our collective experience and helps us achieve our goals.</p>
+					<p>May this new year of life bring you continued success, fulfillment in your endeavors, and
+						abundant joy in both professional and personal spheres.</p>
+					<p>We look forward to celebrating many more milestones together and witnessing your continued growth
+						and success.</p>
+					<p>With sincere appreciation and warm regards,</p>
+					<p>The Team</p>
+				</div>
+			</div>
+
+			<div class="celebration-elements">
+				<div class="cake-container" id="cakeContainer" style="display: none;">
+					<div class="cake"></div>
+					<div class="candle" id="candle"></div>
+				</div>
+			</div>
+
+			<div class="audio-container">
+				<audio id="audioPlayer" controls loop>
+					<source src="Diamonds.mp3" type="audio/mp3">
+					Your browser does not support the audio element.
+				</audio>
+			</div>
+
+		</div>
+		<div class="footer">
+			<p>&copy; <span id="currentYear"></span> - Wishing you a wonderful year ahead</p>
+		</div>
+
+	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script>
+		// Your existing JavaScript remains the same
+		$(document).ready(function () {
+			document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+			$('#showMessage').click(function () {
+				$('#messageCard').addClass('show');
+				$(this).prop('disabled', true).text('Message Displayed');
+			});
+
+			$('#playMusic').click(function () {
+				const audio = document.getElementById('audioPlayer');
+				if (audio.paused) {
+					audio.play().catch(e => console.error("Audio play failed:", e));
+					$(this).text('Pause Music');
+				} else {
+					audio.pause();
+					$(this).text('Play Music');
+				}
+			});
+
+			$('#showCake').click(function () {
+				$('#cakeContainer').fadeIn(1000);
+				$(this).prop('disabled', true).text('Cake Served');
+			});
+
+			$('#lightCandle').click(function () {
+				if ($('#cakeContainer').is(':visible')) {
+					if ($('#flame').length === 0) {
+						$('#candle').append('<div class="flame" id="flame"></div>');
+						$('#flame').css('animation', 'none').height(); /* trigger reflow */
+						$('#flame').css('animation', '');
+						$(this).text('Make a Wish');
+					} else {
+						$('#flame').remove();
+						$(this).text('Light Candle');
+					}
+				} else {
+					console.log("Cake not visible, cannot light candle.");
+				}
+			});
+
+			$('#launchBalloons').click(function () {
+				launchBalloons();
+			});
+
+			function launchBalloons() {
+				const colors = ['#1e3c72', '#2a5298', '#4a69bd', '#6a89cc', '#82ccdd'];
+				const body = $('body');
+				const viewportWidth = window.innerWidth;
+				// Read the padding/margin from the content-wrapper now
+				const buttonAreaWidth = parseInt($('.content-wrapper').css('padding-left') || '0px');
+				const availableWidth = viewportWidth - buttonAreaWidth;
+
+
+				for (let i = 0; i < 10; i++) {
+					setTimeout(() => {
+						const balloon = $('<div class="balloon"></div>');
+						const size = Math.floor(Math.random() * 30) + 40;
+						const color = colors[Math.floor(Math.random() * colors.length)];
+
+						const maxLeftPercent = (availableWidth > size) ? (availableWidth - size) / viewportWidth * 100 : 0;
+						const randomLeftPercent = Math.random() * maxLeftPercent;
+						const actualLeftPercent = (buttonAreaWidth / viewportWidth * 100) + randomLeftPercent;
+
+						balloon.css({
+							'width': `${size}px`,
+							'height': `${size * 1.3}px`,
+							'background-color': color,
+							'left': `${Math.min(actualLeftPercent, 100 - (size / viewportWidth * 100))}%`,
+							'animation-duration': `${Math.random() * 10 + 10}s`,
+							'animation-delay': `${Math.random() * 3}s`
+						});
+
+						// Append to body so it floats over everything
+						body.append(balloon);
+						requestAnimationFrame(() => {
+							balloon.addClass('show');
+						});
+
+						const totalDuration = (parseFloat(balloon.css('animation-duration') || '15') + parseFloat(balloon.css('animation-delay') || '0')) * 1000;
+						setTimeout(() => {
+							if (balloon && balloon.length) {
+								balloon.remove();
+							}
+						}, totalDuration + 500);
+					}, i * 300);
+				}
+			}
+		});
+	</script>
+
+</body>
+
+</html>
