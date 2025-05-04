@@ -434,16 +434,16 @@
 
 		<div class="main-container">
 			<div class="header">
-				<h1 class="birthday-title">Happy Birthday, Mohamed Kassem!</h1>
+				<h1 class="birthday-title">Happy Birthday, Omar Hany!</h1>
 				<p class="subtitle">A special celebration just for you!</p>
 			</div>
 
 			<div class="celebration-card" id="messageCard">
 				<div class="message-section" id="messageSection"><p>Today is a special day as we celebrate the birthdays of:</p><div style="margin-top: 20px;">
       <div class="birthday-person-card" style="margin-bottom: 25px; padding: 15px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-         <h3 style="margin-top: 0; color: #1e3c72;">Mohamed Kassem</h3>
-         <h4 style="font-weight: normal; color: #2a5298; margin-top: 5px; margin-bottom: 10px;">(Secretary)</h4>
-         <p><em>best secretary ever !!!</em></p>
+         <h3 style="margin-top: 0; color: #1e3c72;">Omar Hany</h3>
+         <h4 style="font-weight: normal; color: #2a5298; margin-top: 5px; margin-bottom: 10px;">(Volunteer)</h4>
+         <p><em>prepare yourself for a year full of achievements</em></p>
       </div>
     </div><p>Wishing you all a fantastic day filled with joy, laughter, and success!</p><p>With best wishes,<br>The Team</p></div>
 					<p>We appreciate your contributions and the unique perspective you bring to our shared endeavors.
@@ -479,6 +479,7 @@
 	</div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script>
+		// Your existing JavaScript remains the same
 		$(document).ready(function () {
 			document.getElementById('currentYear').textContent = new Date().getFullYear();
 
@@ -527,6 +528,7 @@
 				const colors = ['#1e3c72', '#2a5298', '#4a69bd', '#6a89cc', '#82ccdd'];
 				const body = $('body');
 				const viewportWidth = window.innerWidth;
+				// Read the padding/margin from the content-wrapper now
 				const buttonAreaWidth = parseInt($('.content-wrapper').css('padding-left') || '0px');
 				const availableWidth = viewportWidth - buttonAreaWidth;
 
@@ -549,6 +551,8 @@
 							'animation-duration': `${Math.random() * 10 + 10}s`,
 							'animation-delay': `${Math.random() * 3}s`
 						});
+
+						// Append to body so it floats over everything
 						body.append(balloon);
 						requestAnimationFrame(() => {
 							balloon.addClass('show');
