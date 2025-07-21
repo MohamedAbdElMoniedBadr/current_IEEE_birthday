@@ -2,14 +2,15 @@
 <html lang="en">
 
 <head>
-	<title>Happy Birthday!</title>
+	<title>Happy Birthday Celebration</title>
 	<meta charset="UTF-8" />
 	<meta name="description" content="Birthday Celebration">
 	<meta name="viewport"
 		content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fredoka+One:wght@400&display=swap"
+	<link
+		href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fredoka+One:wght@400&display=swap"
 		rel="stylesheet">
 	<style>
 		:root {
@@ -52,9 +53,17 @@
 		}
 
 		@keyframes celebrationGradient {
-			0% { background-position: 0% 50%; }
-			50% { background-position: 100% 50%; }
-			100% { background-position: 0% 50%; }
+			0% {
+				background-position: 0% 50%;
+			}
+
+			50% {
+				background-position: 100% 50%;
+			}
+
+			100% {
+				background-position: 0% 50%;
+			}
 		}
 
 		.container {
@@ -93,8 +102,17 @@
 		}
 
 		@keyframes twinkle {
-			0%, 100% { opacity: 0; transform: scale(0); }
-			50% { opacity: 1; transform: scale(1); }
+
+			0%,
+			100% {
+				opacity: 0;
+				transform: scale(0);
+			}
+
+			50% {
+				opacity: 1;
+				transform: scale(1);
+			}
 		}
 
 		/* Stage 1: Dark with candle button */
@@ -103,7 +121,10 @@
 			transition: var(--transition);
 		}
 
-		.stage-1.hidden { opacity: 0; pointer-events: none; }
+		.stage-1.hidden {
+			opacity: 0;
+			pointer-events: none;
+		}
 
 		.candle-button {
 			background: linear-gradient(135deg, var(--warm-yellow) 0%, var(--celebration-orange) 100%);
@@ -249,13 +270,13 @@
 			border: 1px solid #ddd;
 			border-radius: 15px;
 			background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
-			box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+			box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 			transition: transform 0.3s ease, box-shadow 0.3s ease;
 		}
 
 		.birthday-person-card:hover {
 			transform: translateY(-5px);
-			box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+			box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 		}
 
 		.birthday-person-card h3 {
@@ -319,9 +340,17 @@
 		}
 
 		@keyframes cakeShimmer {
-			0% { background-position: 0% 50%; }
-			50% { background-position: 100% 50%; }
-			100% { background-position: 0% 50%; }
+			0% {
+				background-position: 0% 50%;
+			}
+
+			50% {
+				background-position: 100% 50%;
+			}
+
+			100% {
+				background-position: 0% 50%;
+			}
 		}
 
 		.cake:before {
@@ -372,10 +401,21 @@
 		}
 
 		@keyframes flameFlicker {
-			0% { transform: translateX(-50%) scale(1) rotate(-2deg); }
-			33% { transform: translateX(-50%) scale(1.1) rotate(2deg); }
-			66% { transform: translateX(-50%) scale(0.9) rotate(-1deg); }
-			100% { transform: translateX(-50%) scale(1.05) rotate(1deg); }
+			0% {
+				transform: translateX(-50%) scale(1) rotate(-2deg);
+			}
+
+			33% {
+				transform: translateX(-50%) scale(1.1) rotate(2deg);
+			}
+
+			66% {
+				transform: translateX(-50%) scale(0.9) rotate(-1deg);
+			}
+
+			100% {
+				transform: translateX(-50%) scale(1.05) rotate(1deg);
+			}
 		}
 
 		/* Balloons */
@@ -406,9 +446,17 @@
 		}
 
 		@keyframes balloonFloat {
-			0% { transform: translateY(0) rotate(0deg); }
-			50% { transform: translateY(-120vh) rotate(20deg); }
-			100% { transform: translateY(-250vh) rotate(-10deg); }
+			0% {
+				transform: translateY(0) rotate(0deg);
+			}
+
+			50% {
+				transform: translateY(-120vh) rotate(20deg);
+			}
+
+			100% {
+				transform: translateY(-250vh) rotate(-10deg);
+			}
 		}
 
 		/* Credit section */
@@ -439,6 +487,7 @@
 				opacity: 0;
 				transform: translateY(30px);
 			}
+
 			to {
 				opacity: 1;
 				transform: translateY(0);
@@ -450,6 +499,7 @@
 				opacity: 0;
 				transform: translateX(-30px);
 			}
+
 			to {
 				opacity: 1;
 				transform: translateX(0);
@@ -461,10 +511,12 @@
 				opacity: 0;
 				transform: translateY(-50px);
 			}
+
 			60% {
 				opacity: 1;
 				transform: translateY(10px);
 			}
+
 			to {
 				opacity: 1;
 				transform: translateY(0);
@@ -476,10 +528,12 @@
 				opacity: 0;
 				transform: scale(0.3);
 			}
+
 			50% {
 				opacity: 1;
 				transform: scale(1.1);
 			}
+
 			to {
 				opacity: 1;
 				transform: scale(1);
@@ -491,25 +545,28 @@
 			.birthday-title {
 				font-size: 2.5rem;
 			}
-			
+
 			.container {
 				padding: 15px;
 			}
-			
+
 			.message-content {
 				padding: 25px;
 			}
-			
-			.candle-button, .music-button {
+
+			.candle-button,
+			.music-button {
 				padding: 15px 30px;
 				font-size: 1rem;
 			}
-			
+
 			.cake-container {
 				width: 250px;
 			}
-			
-			.cake, .cake:before, .cake::after {
+
+			.cake,
+			.cake:before,
+			.cake::after {
 				width: 250px;
 			}
 
@@ -525,20 +582,22 @@
 			.birthday-title {
 				font-size: 2rem;
 			}
-			
+
 			.subtitle {
 				font-size: 1.2rem;
 			}
-			
+
 			.message-line {
 				font-size: 1rem;
 			}
-			
+
 			.cake-container {
 				width: 200px;
 			}
-			
-			.cake, .cake:before, .cake::after {
+
+			.cake,
+			.cake:before,
+			.cake::after {
 				width: 200px;
 			}
 
@@ -554,7 +613,7 @@
 <body>
 	<!-- Particles container -->
 	<div class="particles" id="particles"></div>
-	
+
 	<!-- Audio element -->
 	<audio id="birthday-song" preload="auto" loop>
 		<source src="Diamonds.mp3" type="audio/mp3">
@@ -574,43 +633,26 @@
 
 		<!-- Stage 3: Birthday message -->
 		<div class="birthday-message" id="messageStage">
-			<h1 class="birthday-title">🎉 Happy Birthday, testing! 🎉</h1>
+			<h1 class="birthday-title">🎉 Happy Birthday! 🎉</h1>
 			<p class="subtitle">A magical celebration just for you! ✨</p>
-			
+
 			<div class="message-content">
 				<!-- This section gets completely replaced by the Google Sheets script -->
 				<div class="message-section" id="messageSection">
-      <p>Today marks a truly special day as we come together to celebrate a wonderful individual who makes our community brighter:</p>
-      
-      <div style="margin-top: 25px;">
-        <div class="birthday-person-card">
-          <h3>testing</h3>
-          <h4>(treasurer)</h4>
-          <p><em>test description</em></p>
-        </div>
-      </div>
-      
-      <p>Birthdays are more than just milestones, they're celebrations of the unique light each person brings to the world. Your contributions to our community have been invaluable, and we're grateful to have you as part of our IEEE family.</p>
-      
-      <p>As you step into this new chapter of your life, may it be filled with exciting adventures, meaningful connections, and the fulfillment of all your dreams. Remember that every challenge is an opportunity to grow, and every success is a testament to your hard work and determination.</p>
-      
-      <p>Here's to another year of innovation, learning, and making a difference in the world of technology and beyond. May your birthday be as extraordinary as you are, surrounded by love, laughter, and the warmth of those who care about you.</p>
-      
-      <p>Wishing you a year ahead filled with boundless joy, continued success, and all the wonderful surprises life has to offer!</p>
-      
-      <p style="margin-top: 30px; font-weight: 600;">With warmest birthday wishes and heartfelt appreciation,<br><span class="highlight-text">IEEE AlexSB</span></p>
-    </div>
+					<p>Today marks a truly special day as we come together to celebrate the wonderful individuals who
+						make our community brighter:</p>
+
+					<div style="margin-top: 25px;">
+						<div class="birthday-person-card">
+							<h3>Birthday Star</h3>
+							<h4>(Amazing Person)</h4>
+							<p><em>Today we celebrate not just another year of your life, but another year of the
+									incredible impact you've had on everyone around you. Your dedication, passion, and
+									positive spirit inspire us all to reach for greater heights. May this new year bring
+									you endless opportunities, cherished memories, and all the happiness your heart can
+									hold!</em></p>
+						</div>
 					</div>
-					
-					<p>Birthdays are more than just milestones, they're celebrations of the unique light each person brings to the world. Your contributions to our community have been invaluable, and we're grateful to have you as part of our IEEE family.</p>
-					
-					<p>As you step into this new chapter of your life, may it be filled with exciting adventures, meaningful connections, and the fulfillment of all your dreams. Remember that every challenge is an opportunity to grow, and every success is a testament to your hard work and determination.</p>
-					
-					<p>Here's to another year of innovation, learning, and making a difference in the world of technology and beyond. May your birthday be as extraordinary as you are, surrounded by love, laughter, and the warmth of those who care about you.</p>
-					
-					<p>Wishing you a year ahead filled with boundless joy, continued success, and all the wonderful surprises life has to offer!</p>
-					
-					<p style="margin-top: 30px; font-weight: 600;">With warmest birthday wishes and heartfelt appreciation,<br><span class="highlight-text">IEEE AlexSB</span></p>
 				</div>
 			</div>
 		</div>
@@ -620,9 +662,15 @@
 			<div class="cake-container">
 				<div class="cake">
 					<div class="candles">
-						<div class="candle"><div class="flame"></div></div>
-						<div class="candle"><div class="flame"></div></div>
-						<div class="candle"><div class="flame"></div></div>
+						<div class="candle">
+							<div class="flame"></div>
+						</div>
+						<div class="candle">
+							<div class="flame"></div>
+						</div>
+						<div class="candle">
+							<div class="flame"></div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -636,10 +684,10 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script>
-		$(document).ready(function() {
+		$(document).ready(function () {
 			let currentStage = 1;
 			let messageLineIndex = 0;
-			
+
 			// Create magical particles
 			function createParticles() {
 				const particlesContainer = $('#particles');
@@ -656,26 +704,26 @@
 			}
 
 			// Stage 1: Light the candles
-			$('#lightButton').click(function() {
+			$('#lightButton').click(function () {
 				$('body').addClass('lit');
 				$('#stage1').addClass('hidden');
-				
+
 				setTimeout(() => {
 					$('#stage2').addClass('active');
 					currentStage = 2;
 				}, 1000);
-				
+
 				createParticles();
 			});
 
 			// Stage 2: Start the music
-			$('#musicButton').click(function() {
+			$('#musicButton').click(function () {
 				const audio = document.getElementById('birthday-song');
 				audio.play().catch(e => console.error("Audio play failed:", e));
-				
+
 				$('body').addClass('celebration');
 				$('#stage2').removeClass('active');
-				
+
 				setTimeout(() => {
 					$('#messageStage').addClass('active');
 					currentStage = 3;
@@ -686,7 +734,7 @@
 			// Stage 3: Show message lines sequentially
 			function showMessageLines() {
 				const messageLines = $('.message-line, .message-section p, .birthday-person-card');
-				
+
 				function showNextLine() {
 					if (messageLineIndex < messageLines.length) {
 						$(messageLines[messageLineIndex]).addClass('show').css({
@@ -704,7 +752,7 @@
 						}, 1500);
 					}
 				}
-				
+
 				// Start showing lines after a brief delay
 				setTimeout(showNextLine, 1000);
 			}
@@ -712,13 +760,13 @@
 			// Launch balloons
 			function launchBalloons() {
 				const colors = ['#ff6b9d', '#4a69bd', '#ffd700', '#ff8c42', '#2a5298'];
-				
+
 				for (let i = 0; i < 12; i++) {
 					setTimeout(() => {
 						const balloon = $('<div class="balloon"></div>');
 						const color = colors[Math.floor(Math.random() * colors.length)];
 						const size = Math.floor(Math.random() * 20) + 40;
-						
+
 						balloon.css({
 							'background-color': color,
 							'width': size + 'px',
@@ -727,10 +775,10 @@
 							'animation-duration': (Math.random() * 5 + 12) + 's',
 							'animation-delay': (Math.random() * 2) + 's'
 						});
-						
+
 						$('body').append(balloon);
 						balloon.addClass('show');
-						
+
 						// Remove balloon after animation
 						setTimeout(() => {
 							balloon.remove();
@@ -748,4 +796,5 @@
 		});
 	</script>
 </body>
+
 </html>
