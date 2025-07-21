@@ -9,7 +9,7 @@
 		content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fredoka+One:wght@400&display=swap"
 		rel="stylesheet">
 	<style>
 		:root {
@@ -18,241 +18,382 @@
 			--accent-color: #4a69bd;
 			--text-color: #2c3e50;
 			--light-color: #f0f2f5;
-			--transition: all 0.3s ease;
-			--button-area-width: 180px;
+			--warm-yellow: #ffd700;
+			--celebration-pink: #ff6b9d;
+			--celebration-orange: #ff8c42;
+			--transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 		}
 
-		html {
-			overflow-x: hidden;
-		}
-
-		*,
-		::before,
-		::after {
+		* {
+			margin: 0;
+			padding: 0;
 			box-sizing: border-box;
 		}
 
 		body {
 			font-family: 'Poppins', sans-serif;
-			background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+			background: #0a0a0a;
 			color: var(--text-color);
-			line-height: 1.7;
-			padding-bottom: 60px;
-			/* REMOVED padding-left: var(--button-area-width); */
+			line-height: 1.6;
+			overflow-x: hidden;
+			min-height: 100vh;
+			transition: var(--transition);
 			position: relative;
 		}
 
-		/* --- New Wrapper Style --- */
-		.content-wrapper {
-			padding-left: var(--button-area-width);
-			/* Apply padding here */
-			position: relative;
-			/* Establish positioning context if needed */
-			width: 100%;
-			/* Ensure it takes full width before padding */
+		body.lit {
+			background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #4a69bd 100%);
 		}
 
-		.main-container {
+		body.celebration {
+			background: linear-gradient(135deg, #ff6b9d 0%, #4a69bd 30%, #1e3c72 70%, #2a5298 100%);
+			background-size: 400% 400%;
+			animation: celebrationGradient 8s ease infinite;
+		}
+
+		@keyframes celebrationGradient {
+			0% { background-position: 0% 50%; }
+			50% { background-position: 100% 50%; }
+			100% { background-position: 0% 50%; }
+		}
+
+		.container {
 			max-width: 900px;
 			margin: 0 auto;
-			/* Center within the wrapper */
 			padding: 20px;
-			/* Keep internal padding */
-			width: 100%;
-			/* Allow shrinking below max-width */
+			min-height: 100vh;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			position: relative;
+			z-index: 2;
 		}
 
-		.header {
-			text-align: center;
-			padding: 30px 0;
+		/* Magical particles background */
+		.particles {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			pointer-events: none;
+			z-index: 1;
+		}
+
+		.particle {
+			position: absolute;
+			width: 4px;
+			height: 4px;
+			background: var(--warm-yellow);
+			border-radius: 50%;
+			opacity: 0;
+			animation: twinkle 3s infinite;
+		}
+
+		@keyframes twinkle {
+			0%, 100% { opacity: 0; transform: scale(0); }
+			50% { opacity: 1; transform: scale(1); }
+		}
+
+		/* Stage 1: Dark with candle button */
+		.stage-1 {
+			opacity: 1;
+			transition: var(--transition);
+		}
+
+		.stage-1.hidden { opacity: 0; pointer-events: none; }
+
+		.candle-button {
+			background: linear-gradient(135deg, var(--warm-yellow) 0%, var(--celebration-orange) 100%);
+			border: none;
+			padding: 20px 40px;
+			border-radius: 50px;
+			color: #333;
+			font-size: 1.2rem;
+			font-weight: 600;
+			cursor: pointer;
+			box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+			transition: all 0.3s ease;
+			font-family: 'Fredoka One', cursive;
+		}
+
+		.candle-button:hover {
+			transform: translateY(-5px) scale(1.05);
+			box-shadow: 0 15px 40px rgba(255, 215, 0, 0.4);
+		}
+
+		.candle-hint {
+			color: rgba(255, 255, 255, 0.7);
+			margin-top: 20px;
+			font-size: 1.1rem;
+			opacity: 0;
+			animation: fadeInUp 2s ease forwards;
+		}
+
+		/* Stage 2: Music button */
+		.stage-2 {
+			opacity: 0;
+			transition: var(--transition);
+			pointer-events: none;
+		}
+
+		.stage-2.active {
+			opacity: 1;
+			pointer-events: auto;
+		}
+
+		.music-button {
+			background: linear-gradient(135deg, var(--celebration-pink) 0%, var(--primary-color) 100%);
+			border: none;
+			padding: 18px 35px;
+			border-radius: 50px;
+			color: white;
+			font-size: 1.1rem;
+			font-weight: 600;
+			cursor: pointer;
+			box-shadow: 0 10px 30px rgba(255, 107, 157, 0.3);
+			transition: all 0.3s ease;
+			font-family: 'Fredoka One', cursive;
+			margin-top: 30px;
+		}
+
+		.music-button:hover {
+			transform: translateY(-5px) scale(1.05);
+			box-shadow: 0 15px 40px rgba(255, 107, 157, 0.4);
+		}
+
+		/* Stage 3: Message appears */
+		.birthday-message {
+			opacity: 0;
+			margin-top: 40px;
+			max-width: 800px;
+		}
+
+		.birthday-message.active {
+			opacity: 1;
 		}
 
 		.birthday-title {
-			font-size: 3rem;
-			font-weight: 700;
-			/* ... rest of title styles ... */
+			font-family: 'Fredoka One', cursive;
+			font-size: 3.5rem;
+			background: linear-gradient(135deg, var(--warm-yellow) 0%, var(--celebration-orange) 50%, var(--celebration-pink) 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+			margin-bottom: 20px;
+			opacity: 0;
+			transform: translateY(30px);
+			animation: bounceInDown 1s ease forwards;
+		}
+
+		.subtitle {
+			font-size: 1.4rem;
+			color: white;
+			margin-bottom: 30px;
+			opacity: 0;
+			transform: translateY(20px);
+			animation: fadeInUp 1s ease 0.5s forwards;
+		}
+
+		.message-content {
+			background: rgba(255, 255, 255, 0.95);
+			border-radius: 20px;
+			padding: 40px;
+			box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+			margin: 20px 0;
+			backdrop-filter: blur(10px);
+		}
+
+		/* Message section that gets replaced by the script */
+		.message-section {
+			color: var(--text-color);
+		}
+
+		.message-line {
+			opacity: 0;
+			transform: translateX(-30px);
+			margin-bottom: 20px;
+			font-size: 1.1rem;
+			color: var(--text-color);
+		}
+
+		.message-line.show {
+			animation: slideInLeft 0.8s ease forwards;
+		}
+
+		.highlight-text {
+			font-weight: 600;
 			color: var(--primary-color);
-			margin-bottom: 15px;
-			background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+			background: linear-gradient(135deg, var(--primary-color) 0%, var(--celebration-pink) 100%);
 			-webkit-background-clip: text;
 			-webkit-text-fill-color: transparent;
 			background-clip: text;
 		}
 
-		.subtitle {
-			font-size: 1.5rem;
-			font-weight: 400;
-			margin-bottom: 30px;
-			color: var(--accent-color);
+		.quote {
+			background: linear-gradient(135deg, var(--accent-color) 0%, var(--celebration-pink) 100%);
+			color: white;
+			padding: 20px;
+			border-radius: 15px;
+			margin: 20px 0;
+			font-style: italic;
+			box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 		}
 
-		.celebration-card {
-			background-color: white;
-			border-radius: 12px;
-			box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-			padding: 40px;
+		/* Birthday person cards for multiple people */
+		.birthday-person-card {
 			margin-bottom: 30px;
+			padding: 25px;
+			border: 1px solid #ddd;
+			border-radius: 15px;
+			background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
+			box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+			transition: transform 0.3s ease, box-shadow 0.3s ease;
+		}
+
+		.birthday-person-card:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+		}
+
+		.birthday-person-card h3 {
+			margin-top: 0;
+			color: var(--primary-color);
+			font-size: 1.6rem;
+			margin-bottom: 8px;
+		}
+
+		.birthday-person-card h4 {
+			font-weight: normal;
+			color: var(--secondary-color);
+			margin-top: 5px;
+			margin-bottom: 15px;
+			font-size: 1.2rem;
+		}
+
+		/* Stage 4: Cake appears */
+		.cake-stage {
 			opacity: 0;
-			transform: translateY(30px);
+			margin-top: 40px;
 			transition: var(--transition);
 		}
 
-		.celebration-card.show {
+		.cake-stage.active {
 			opacity: 1;
-			transform: translateY(0);
-		}
-
-		.message-section {
-			font-size: 1.1rem;
-			line-height: 1.8;
-			text-align: center;
-			margin: 30px 0;
-		}
-
-		.message-section p {
-			margin-bottom: 15px;
-		}
-
-		.quote {
-			font-style: italic;
-			border-left: 4px solid var(--primary-color);
-			padding-left: 20px;
-			margin: 25px 0;
-			color: var(--accent-color);
-			text-align: left;
-			/* Align quote text left */
-		}
-
-		.highlight-text {
-			font-weight: 600;
-			color: var(--secondary-color);
-		}
-
-		.celebration-elements {
-			text-align: center;
-			margin: 40px 0;
+			animation: bounceIn 1.2s ease forwards;
 		}
 
 		.cake-container {
 			margin: 30px auto;
-			max-width: 300px;
+			width: 300px;
+			max-width: 90%;
 			position: relative;
+			display: block;
 		}
 
 		.cake {
-			width: 100%;
+			width: 300px;
 			height: 180px;
 			position: relative;
-			border-radius: 10px 10px 0 0;
-			background: linear-gradient(to right, #f27121, #e94057, #8a2387);
-			box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+			border-radius: 15px 15px 0 0;
+			background: linear-gradient(45deg, var(--celebration-pink), var(--celebration-orange), var(--warm-yellow));
+			background-size: 300% 300%;
+			animation: cakeShimmer 3s ease infinite;
+			box-shadow: 0 15px 30px rgba(255, 107, 157, 0.4);
+			margin: 0 auto;
+			display: block;
+		}
+
+		.cake::after {
+			content: '';
+			position: absolute;
+			bottom: -30px;
+			left: 0;
+			width: 300px;
+			height: 30px;
+			background: linear-gradient(45deg, #8B4513, #A0522D, #CD853F);
+			border-radius: 0 0 15px 15px;
+			box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+		}
+
+		@keyframes cakeShimmer {
+			0% { background-position: 0% 50%; }
+			50% { background-position: 100% 50%; }
+			100% { background-position: 0% 50%; }
 		}
 
 		.cake:before {
 			content: '';
 			position: absolute;
-			background: linear-gradient(to right, #f27121, #e94057, #8a2387);
-			width: 100%;
+			background: linear-gradient(45deg, var(--celebration-pink), var(--celebration-orange), var(--warm-yellow));
+			background-size: 300% 300%;
+			animation: cakeShimmer 3s ease infinite;
+			width: 300px;
 			height: 40px;
-			border-radius: 10px 10px 0 0;
+			border-radius: 15px 15px 0 0;
 			top: -20px;
 			left: 0;
+			z-index: 1;
+		}
+
+		.candles {
+			position: absolute;
+			top: -50px;
+			left: 50%;
+			transform: translateX(-50%);
+			display: flex;
+			gap: 15px;
+			z-index: 2;
 		}
 
 		.candle {
-			position: absolute;
-			background-color: #fff;
+			background: linear-gradient(to bottom, #fff, #f0f0f0);
 			width: 12px;
-			height: 30px;
-			top: -40px;
-			left: 50%;
-			transform: translateX(-50%);
-			border-radius: 4px;
+			height: 35px;
+			border-radius: 6px;
+			position: relative;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 		}
 
 		.flame {
 			position: absolute;
-			width: 15px;
-			height: 30px;
-			background: linear-gradient(to bottom, #ffff00, #ff9900);
+			width: 16px;
+			height: 25px;
+			background: radial-gradient(circle, var(--warm-yellow) 0%, var(--celebration-orange) 70%, #ff4444 100%);
 			border-radius: 50% 50% 20% 20%;
-			box-shadow: 0 0 10px #ff6600, 0 0 20px #ff9900;
-			transform-origin: center bottom;
-			animation: flicker 1s infinite alternate;
-			top: -30px;
+			box-shadow: 0 0 15px var(--warm-yellow), 0 0 25px var(--celebration-orange);
+			top: -25px;
 			left: 50%;
-			transform: translateX(-50%) scale(1.0);
+			transform: translateX(-50%);
+			animation: flameFlicker 1.5s infinite alternate;
+			z-index: 3;
 		}
 
-		@keyframes flicker {
-			0% {
-				transform: translateX(-50%) scale(1.0);
-			}
-
-			50% {
-				transform: translateX(-50%) scale(0.9);
-			}
-
-			100% {
-				transform: translateX(-50%) scale(1.1);
-			}
+		@keyframes flameFlicker {
+			0% { transform: translateX(-50%) scale(1) rotate(-2deg); }
+			33% { transform: translateX(-50%) scale(1.1) rotate(2deg); }
+			66% { transform: translateX(-50%) scale(0.9) rotate(-1deg); }
+			100% { transform: translateX(-50%) scale(1.05) rotate(1deg); }
 		}
 
-		.button-container {
-			position: fixed;
-			left: 20px;
-			top: 30px;
-			display: flex;
-			flex-direction: column;
-			gap: 15px;
-			z-index: 1000;
-			width: calc(var(--button-area-width) - 40px);
-		}
-
-		.control-button {
-			padding: 12px 15px;
-			/* ... rest of button styles ... */
-			border-radius: 50px;
-			background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-			color: white;
-			border: none;
-			cursor: pointer;
-			font-weight: 500;
-			letter-spacing: 0.5px;
-			transition: var(--transition);
-			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-			width: 100%;
-			text-align: center;
-		}
-
-		.control-button:hover {
-			transform: translateY(-3px);
-			box-shadow: 0 7px 14px rgba(0, 0, 0, 0.1);
-		}
-
-		.control-button:active {
-			transform: translateY(1px);
-		}
-
+		/* Balloons */
 		.balloon {
 			width: 50px;
 			height: 65px;
-			background: var(--primary-color);
 			border-radius: 50%;
 			position: fixed;
-			/* Changed to fixed relative to viewport */
-			top: 100vh;
-			animation: float 15s ease-in-out infinite;
+			top: 110vh;
+			z-index: 5;
 			opacity: 0;
-			transition: opacity 1s ease;
-			z-index: 990;
 		}
 
 		.balloon::before {
 			content: '';
 			width: 2px;
 			height: 40px;
-			background: rgba(0, 0, 0, 0.2);
+			background: rgba(0, 0, 0, 0.3);
 			position: absolute;
 			left: 50%;
 			bottom: -40px;
@@ -261,315 +402,336 @@
 
 		.balloon.show {
 			opacity: 1;
+			animation: balloonFloat 15s ease-out forwards;
 		}
 
-		@keyframes float {
-			0% {
-				transform: translateY(0vh) rotate(0deg);
-				/* Start just below viewport */
-			}
-
-			50% {
-				transform: translateY(-110vh) rotate(20deg);
-			}
-
-			/* Go way above */
-			100% {
-				transform: translateY(-220vh) rotate(-20deg);
-			}
-
-			/* End even higher */
+		@keyframes balloonFloat {
+			0% { transform: translateY(0) rotate(0deg); }
+			50% { transform: translateY(-120vh) rotate(20deg); }
+			100% { transform: translateY(-250vh) rotate(-10deg); }
 		}
 
-
-		.footer {
-			text-align: center;
-			margin-top: 50px;
-			font-size: 0.9rem;
-			color: var(--accent-color);
-			/* REMOVED padding-left: var(--button-area-width); */
-			/* Center footer relative to the wrapper's content area */
-			max-width: 900px;
-			/* Match max-width of main container if desired */
-			margin-left: auto;
-			/* Center */
-			margin-right: auto;
-			/* Center */
-			padding: 0 20px;
-			/* Add padding similar to main-container */
+		/* Credit section */
+		.credit {
+			position: fixed;
+			bottom: 10px;
+			right: 15px;
+			background: rgba(255, 255, 255, 0.9);
+			padding: 8px 15px;
+			border-radius: 20px;
+			font-size: 0.85rem;
+			color: var(--text-color);
+			font-weight: 500;
+			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+			backdrop-filter: blur(10px);
+			z-index: 1000;
+			opacity: 0.8;
+			transition: opacity 0.3s ease;
 		}
 
-		.fade-in {
-			animation: fadeIn 1s forwards;
+		.credit:hover {
+			opacity: 1;
 		}
 
-		@keyframes fadeIn {
+		/* Animations */
+		@keyframes fadeInUp {
 			from {
 				opacity: 0;
-				transform: translateY(20px);
+				transform: translateY(30px);
 			}
-
 			to {
 				opacity: 1;
 				transform: translateY(0);
 			}
 		}
 
-		.audio-container {
-			text-align: center;
-			margin: 20px 0;
+		@keyframes slideInLeft {
+			from {
+				opacity: 0;
+				transform: translateX(-30px);
+			}
+			to {
+				opacity: 1;
+				transform: translateX(0);
+			}
 		}
 
-		.audio-container audio {
-			width: 300px;
-			max-width: 100%;
-			border-radius: 30px;
-			outline: none;
+		@keyframes bounceInDown {
+			from {
+				opacity: 0;
+				transform: translateY(-50px);
+			}
+			60% {
+				opacity: 1;
+				transform: translateY(10px);
+			}
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
 		}
 
-		/* --- Updated Responsive Adjustments --- */
+		@keyframes bounceIn {
+			from {
+				opacity: 0;
+				transform: scale(0.3);
+			}
+			50% {
+				opacity: 1;
+				transform: scale(1.1);
+			}
+			to {
+				opacity: 1;
+				transform: scale(1);
+			}
+		}
+
+		/* Responsive */
 		@media (max-width: 768px) {
-
-			/* Remove wrapper padding */
-			.content-wrapper {
-				padding-left: 0;
-			}
-
-			/* Add top padding to body for buttons */
-			body {
-				padding-top: 100px;
-				padding-left: 0;
-				/* Ensure no leftover padding */
-			}
-
-			.main-container {
-				padding: 15px;
-				max-width: 100%;
-			}
-
-			.button-container {
-				position: fixed;
-				top: 10px;
-				left: 10px;
-				right: 10px;
-				bottom: auto;
-				width: auto;
-				flex-direction: row;
-				flex-wrap: wrap;
-				justify-content: center;
-				background: rgba(240, 242, 245, 0.9);
-				padding: 10px;
-				border-radius: 8px;
-				box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-				z-index: 1000;
-			}
-
-			.control-button {
-				width: auto;
-				flex-grow: 1;
-				padding: 8px 12px;
-				font-size: 0.9rem;
-			}
-
-			/* Footer already centered by margin auto */
-			.footer {
-				max-width: 100%;
-				/* Allow footer full width */
-				padding: 0 15px;
-				/* Match container padding */
-				margin-top: 30px;
-			}
-
 			.birthday-title {
-				font-size: 2.2rem;
+				font-size: 2.5rem;
 			}
-
-			.subtitle {
-				font-size: 1.2rem;
+			
+			.container {
+				padding: 15px;
 			}
-
-			.celebration-card {
-				padding: 25px 20px;
+			
+			.message-content {
+				padding: 25px;
 			}
-
-			.message-section {
+			
+			.candle-button, .music-button {
+				padding: 15px 30px;
 				font-size: 1rem;
+			}
+			
+			.cake-container {
+				width: 250px;
+			}
+			
+			.cake, .cake:before, .cake::after {
+				width: 250px;
+			}
+
+			.credit {
+				bottom: 5px;
+				right: 5px;
+				font-size: 0.75rem;
+				padding: 6px 12px;
 			}
 		}
 
 		@media (max-width: 480px) {
-			.control-button {
-				min-width: 110px;
-				font-size: 0.85rem;
+			.birthday-title {
+				font-size: 2rem;
+			}
+			
+			.subtitle {
+				font-size: 1.2rem;
+			}
+			
+			.message-line {
+				font-size: 1rem;
+			}
+			
+			.cake-container {
+				width: 200px;
+			}
+			
+			.cake, .cake:before, .cake::after {
+				width: 200px;
 			}
 
-			.audio-container audio {
-				width: 90%;
-			}
-
-			body {
-				padding-top: 120px;
-				/* May need adjustment based on wrapped button height */
-			}
-
-			.footer {
-				font-size: 0.8rem;
+			.credit {
+				position: static;
+				margin: 20px auto 0;
+				text-align: center;
 			}
 		}
 	</style>
 </head>
 
 <body>
-	<audio id="birthday-song" src="Diamonds.mp3" preload="auto"></audio>
+	<!-- Particles container -->
+	<div class="particles" id="particles"></div>
+	
+	<!-- Audio element -->
+	<audio id="birthday-song" preload="auto" loop>
+		<source src="Diamonds.mp3" type="audio/mp3">
+	</audio>
 
-	<div class="button-container">
-		<button class="control-button" id="showMessage">Display Message</button>
-		<button class="control-button" id="playMusic">Play Music</button>
-		<button class="control-button" id="showCake">Show Cake</button>
-		<button class="control-button" id="lightCandle">Light Candle</button>
-		<button class="control-button" id="launchBalloons">Launch Balloons</button>
-	</div>
+	<div class="container">
+		<!-- Stage 1: Light the candles -->
+		<div class="stage-1" id="stage1">
+			<div class="candle-hint">✨ Ready to start the celebration? ✨</div>
+			<button class="candle-button" id="lightButton">🕯️ Light the Candles</button>
+		</div>
 
-	<div class="content-wrapper">
+		<!-- Stage 2: Start the music -->
+		<div class="stage-2" id="stage2">
+			<button class="music-button" id="musicButton">🎵 Start the Music</button>
+		</div>
 
-		<div class="main-container">
-			<div class="header">
-				<h1 class="birthday-title">Happy Birthday,  هشام احمد عبدالعال علي!</h1>
-				<p class="subtitle">A special celebration just for you!</p>
-			</div>
-
-			<div class="celebration-card" id="messageCard">
+		<!-- Stage 3: Birthday message -->
+		<div class="birthday-message" id="messageStage">
+			<h1 class="birthday-title">Happy Birthday, testing!</h1>
+			<p class="subtitle">A special celebration just for you!</p>
+			
+			<div class="message-content">
+				<!-- This section gets replaced by the Google Sheets script -->
 				<div class="message-section" id="messageSection"><p>Today is a special day as we celebrate the birthdays of:</p><div style="margin-top: 20px;">
       <div class="birthday-person-card" style="margin-bottom: 25px; padding: 15px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-         <h3 style="margin-top: 0; color: #1e3c72;"> هشام احمد عبدالعال علي</h3>
-         <h4 style="font-weight: normal; color: #2a5298; margin-top: 5px; margin-bottom: 10px;">(Volunteer)</h4>
-         <p><em>Wishing you a fantastic day!</em></p>
+         <h3 style="margin-top: 0; color: #1e3c72;">testing</h3>
+         <h4 style="font-weight: normal; color: #2a5298; margin-top: 5px; margin-bottom: 10px;">(treasurer)</h4>
+         <p><em>test description</em></p>
       </div>
     </div><p>Wishing you all a fantastic day filled with joy, laughter, and success!</p><p>With best wishes,<br>The Team</p></div>
-					<p>We appreciate your contributions and the unique perspective you bring to our shared endeavors.
-						Your presence enhances our collective experience and helps us achieve our goals.</p>
-					<p>May this new year of life bring you continued success, fulfillment in your endeavors, and
-						abundant joy in both professional and personal spheres.</p>
-					<p>We look forward to celebrating many more milestones together and witnessing your continued growth
-						and success.</p>
-					<p>With sincere appreciation and warm regards,</p>
-					<p>The Team</p>
+					</div>
+					
+					<p>Birthdays are more than just milestones, they're celebrations of the unique light each person brings to the world. Your contributions to our community have been invaluable, and we're grateful to have you as part of our IEEE family.</p>
+					
+					<p>As you step into this new chapter of your life, may it be filled with exciting adventures, meaningful connections, and the fulfillment of all your dreams. Remember that every challenge is an opportunity to grow, and every success is a testament to your hard work and determination.</p>
+					
+					<p>Here's to another year of innovation, learning, and making a difference in the world of technology and beyond. May your birthday be as extraordinary as you are, surrounded by love, laughter, and the warmth of those who care about you.</p>
+					
+					<p>Wishing you a year ahead filled with boundless joy, continued success, and all the wonderful surprises life has to offer!</p>
+					
+					<p style="margin-top: 30px; font-weight: 600;">With warmest birthday wishes and heartfelt appreciation,<br><span class="highlight-text">IEEE AlexSB</span></p>
 				</div>
 			</div>
+		</div>
 
-			<div class="celebration-elements">
-				<div class="cake-container" id="cakeContainer" style="display: none;">
-					<div class="cake"></div>
-					<div class="candle" id="candle"></div>
+		<!-- Stage 4: Birthday cake -->
+		<div class="cake-stage" id="cakeStage">
+			<div class="cake-container">
+				<div class="cake">
+					<div class="candles">
+						<div class="candle"><div class="flame"></div></div>
+						<div class="candle"><div class="flame"></div></div>
+						<div class="candle"><div class="flame"></div></div>
+					</div>
 				</div>
 			</div>
-
-			<div class="audio-container">
-				<audio id="audioPlayer" controls loop>
-					<source src="Diamonds.mp3" type="audio/mp3">
-					Your browser does not support the audio element.
-				</audio>
-			</div>
-
 		</div>
-		<div class="footer">
-			<p>&copy; <span id="currentYear"></span> - Wishing you a wonderful year ahead</p>
-		</div>
-
 	</div>
+
+	<!-- Credit -->
+	<div class="credit">
+		Created by Mohamed Abdelmoneim
+	</div>
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script>
-		// Your existing JavaScript remains the same
-		$(document).ready(function () {
-			document.getElementById('currentYear').textContent = new Date().getFullYear();
-
-			$('#showMessage').click(function () {
-				$('#messageCard').addClass('show');
-				$(this).prop('disabled', true).text('Message Displayed');
-			});
-
-			$('#playMusic').click(function () {
-				const audio = document.getElementById('audioPlayer');
-				if (audio.paused) {
-					audio.play().catch(e => console.error("Audio play failed:", e));
-					$(this).text('Pause Music');
-				} else {
-					audio.pause();
-					$(this).text('Play Music');
-				}
-			});
-
-			$('#showCake').click(function () {
-				$('#cakeContainer').fadeIn(1000);
-				$(this).prop('disabled', true).text('Cake Served');
-			});
-
-			$('#lightCandle').click(function () {
-				if ($('#cakeContainer').is(':visible')) {
-					if ($('#flame').length === 0) {
-						$('#candle').append('<div class="flame" id="flame"></div>');
-						$('#flame').css('animation', 'none').height(); /* trigger reflow */
-						$('#flame').css('animation', '');
-						$(this).text('Make a Wish');
-					} else {
-						$('#flame').remove();
-						$(this).text('Light Candle');
-					}
-				} else {
-					console.log("Cake not visible, cannot light candle.");
-				}
-			});
-
-			$('#launchBalloons').click(function () {
-				launchBalloons();
-			});
-
-			function launchBalloons() {
-				const colors = ['#1e3c72', '#2a5298', '#4a69bd', '#6a89cc', '#82ccdd'];
-				const body = $('body');
-				const viewportWidth = window.innerWidth;
-				// Read the padding/margin from the content-wrapper now
-				const buttonAreaWidth = parseInt($('.content-wrapper').css('padding-left') || '0px');
-				const availableWidth = viewportWidth - buttonAreaWidth;
-
-
-				for (let i = 0; i < 10; i++) {
-					setTimeout(() => {
-						const balloon = $('<div class="balloon"></div>');
-						const size = Math.floor(Math.random() * 30) + 40;
-						const color = colors[Math.floor(Math.random() * colors.length)];
-
-						const maxLeftPercent = (availableWidth > size) ? (availableWidth - size) / viewportWidth * 100 : 0;
-						const randomLeftPercent = Math.random() * maxLeftPercent;
-						const actualLeftPercent = (buttonAreaWidth / viewportWidth * 100) + randomLeftPercent;
-
-						balloon.css({
-							'width': `${size}px`,
-							'height': `${size * 1.3}px`,
-							'background-color': color,
-							'left': `${Math.min(actualLeftPercent, 100 - (size / viewportWidth * 100))}%`,
-							'animation-duration': `${Math.random() * 10 + 10}s`,
-							'animation-delay': `${Math.random() * 3}s`
-						});
-
-						// Append to body so it floats over everything
-						body.append(balloon);
-						requestAnimationFrame(() => {
-							balloon.addClass('show');
-						});
-
-						const totalDuration = (parseFloat(balloon.css('animation-duration') || '15') + parseFloat(balloon.css('animation-delay') || '0')) * 1000;
-						setTimeout(() => {
-							if (balloon && balloon.length) {
-								balloon.remove();
-							}
-						}, totalDuration + 500);
-					}, i * 300);
+		$(document).ready(function() {
+			let currentStage = 1;
+			let messageLineIndex = 0;
+			
+			// Create magical particles
+			function createParticles() {
+				const particlesContainer = $('#particles');
+				for (let i = 0; i < 50; i++) {
+					const particle = $('<div class="particle"></div>');
+					particle.css({
+						left: Math.random() * 100 + '%',
+						top: Math.random() * 100 + '%',
+						animationDelay: Math.random() * 3 + 's',
+						animationDuration: (Math.random() * 2 + 2) + 's'
+					});
+					particlesContainer.append(particle);
 				}
 			}
+
+			// Stage 1: Light the candles
+			$('#lightButton').click(function() {
+				$('body').addClass('lit');
+				$('#stage1').addClass('hidden');
+				
+				setTimeout(() => {
+					$('#stage2').addClass('active');
+					currentStage = 2;
+				}, 1000);
+				
+				createParticles();
+			});
+
+			// Stage 2: Start the music
+			$('#musicButton').click(function() {
+				const audio = document.getElementById('birthday-song');
+				audio.play().catch(e => console.error("Audio play failed:", e));
+				
+				$('body').addClass('celebration');
+				$('#stage2').removeClass('active');
+				
+				setTimeout(() => {
+					$('#messageStage').addClass('active');
+					currentStage = 3;
+					showMessageLines();
+				}, 800);
+			});
+
+			// Stage 3: Show message lines sequentially
+			function showMessageLines() {
+				const messageLines = $('.message-line, .message-section p, .birthday-person-card');
+				
+				function showNextLine() {
+					if (messageLineIndex < messageLines.length) {
+						$(messageLines[messageLineIndex]).addClass('show').css({
+							'opacity': '1',
+							'transform': 'translateX(0)'
+						});
+						messageLineIndex++;
+						setTimeout(showNextLine, 600);
+					} else {
+						// All lines shown, move to cake stage
+						setTimeout(() => {
+							$('#cakeStage').addClass('active');
+							currentStage = 4;
+							launchBalloons();
+						}, 1500);
+					}
+				}
+				
+				// Start showing lines after a brief delay
+				setTimeout(showNextLine, 1000);
+			}
+
+			// Launch balloons
+			function launchBalloons() {
+				const colors = ['#ff6b9d', '#4a69bd', '#ffd700', '#ff8c42', '#2a5298'];
+				
+				for (let i = 0; i < 12; i++) {
+					setTimeout(() => {
+						const balloon = $('<div class="balloon"></div>');
+						const color = colors[Math.floor(Math.random() * colors.length)];
+						const size = Math.floor(Math.random() * 20) + 40;
+						
+						balloon.css({
+							'background-color': color,
+							'width': size + 'px',
+							'height': (size * 1.3) + 'px',
+							'left': Math.random() * 90 + '%',
+							'animation-duration': (Math.random() * 5 + 12) + 's',
+							'animation-delay': (Math.random() * 2) + 's'
+						});
+						
+						$('body').append(balloon);
+						balloon.addClass('show');
+						
+						// Remove balloon after animation
+						setTimeout(() => {
+							balloon.remove();
+						}, 18000);
+					}, i * 200);
+				}
+			}
+
+			// Initialize message section visibility
+			$('.message-section p, .birthday-person-card').css({
+				'opacity': '0',
+				'transform': 'translateX(-30px)',
+				'transition': 'all 0.8s ease'
+			});
 		});
 	</script>
-
 </body>
-
 </html>
